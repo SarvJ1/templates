@@ -1,0 +1,34 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: testtemplate
+  title: Test template with custom extension
+  description: Test template
+spec:
+  parameters:
+    - title: Fill in some steps
+      required:
+        - name
+      properties:
+        name:
+          title: Name
+          type: string
+          description: My custom name for the component
+          ui:field: ValidateKebabCase
+  steps:
+    - id: trigger
+      name: Creating Your Django Service
+      action: trigger:harness-custom-pipeline
+      input:
+        url: 'https://app.harness.io/ng/#/account/dh-iBL35SqqpuqJF0yDjpQ/home/orgs/default/projects/CIQuickstart/pipelines/fetchfromcustom/pipeline-studio/?storeType=INLINE'
+        inputset:
+          provider: ${{ parameters.provider }}
+          db: ${{ parameters.db }}
+          cache: ${{ parameters.cache }}
+          lint: ${{ parameters.lint }}
+          name: ${{ parameters.name }}
+          repository: ${{ parameters.repository }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
