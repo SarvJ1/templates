@@ -82,7 +82,15 @@ spec:
           name: ${{ parameters.name }}
           repository: ${{ parameters.repository }}
         apikey: ${{ parameters.token }}
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        catalogInfoUrl: "https://github.com/SarvJ1/catalogtest/blob/main/MongoService.yaml"       
   output:
     links:
       - title: Pipeline Details
         url: ${{ steps.trigger.output.PipelineUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}        
