@@ -28,6 +28,11 @@ spec:
         isPublish:
           title: Do you wish to publish the internal registry?
           type: boolean
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
     - title: Service Infrastructure Details
       required:
         - provider
@@ -68,7 +73,7 @@ spec:
       name: Creating Your Django Service
       action: trigger:harness-custom-pipeline
       input:
-        url: 'https://app.harness.io/ng/#/account/dh-iBL35SqqpuqJF0yDjpQ/home/orgs/default/projects/CIQuickstart/pipelines/fetchfromcustom/pipeline-studio/?storeType=INLINE'
+        url: 'https://qa.harness.io/ng/account/px7xd_BFRCi-pfWPYXVjvw/home/orgs/default/projects/IDP_Test/pipelines/Django_Service/pipeline-studio/?storeType=INLINE'
         inputset:
           provider: ${{ parameters.provider }}
           db: ${{ parameters.db }}
@@ -76,7 +81,8 @@ spec:
           lint: ${{ parameters.lint }}
           name: ${{ parameters.name }}
           repository: ${{ parameters.repository }}
+        apikey: ${{ parameters.token }}
   output:
     links:
       - title: Pipeline Details
-        url: ${{ steps.trigger.output.PipelineUrl }}
+        url: ${{ steps.trigger.output.PipelineUrl }}       
