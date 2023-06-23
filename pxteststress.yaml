@@ -1,0 +1,39 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: customfieldtemplate2
+  title: Create a custom pipeline run2
+  description: An template for the scaffolder that runs a custom pipeline2
+  tags:
+    - django
+    - harness
+spec:
+  owner: sarvagnya.jatti2@harness.io
+  type: service
+  parameters:
+    - title: Pipeline Details
+      required:
+        - testname
+      properties:
+        testname:
+          title: Name of your variable
+          type: string
+          description: Unique name of the service
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+  steps:
+    - id: trigger
+      name: Creating Your Django Service
+      action: trigger:harness-custom-pipeline
+      input:
+        url: 'https://stress.harness.io/ng/account/zEaak-FLS425IEO7OLzMUg/ci/orgs/default/projects/IDPTest/pipelines/test/pipeline-studio/?storeType=INLINE'
+        inputset:
+          testname: ${{ parameters.testname }}
+        apikey: ${{ parameters.token }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
