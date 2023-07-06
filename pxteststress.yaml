@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: customfieldtemplate2
-  title: Create a custom pipeline run2
+  title: Create a custom pipeline run polling
   description: An template for the scaffolder that runs a custom pipeline2
   tags:
     - django
